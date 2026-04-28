@@ -2,7 +2,8 @@
 #include <string>
 using namespace std;
 
-class siswa;
+class siswa; // forward declaration
+
 class orang
 {
 private:
@@ -10,7 +11,7 @@ private:
 
 public:
     void setNama(string pNama);
-    friend class soiswa;
+    friend class siswa; // siswa boleh akses private orang
 };
 
 class siswa
@@ -20,14 +21,10 @@ private:
 
 public:
     void setId(int pId);
-    void showplayAll(orang &a);
+    void displayAll(orang &a); // diperbaiki (nama harus sama)
 };
 
-void siswa::displayAll(orang &a)
-{
-    cout << id << endl
-         << a.nama << endl;
-}
+// IMPLEMENTASI
 
 void orang::setNama(string pNama)
 {
@@ -39,6 +36,13 @@ void siswa::setId(int pId)
     id = pId;
 }
 
+void siswa::displayAll(orang &a)
+{
+    cout << "ID: " << id << endl;
+    cout << "Nama: " << a.nama << endl; // akses private karena friend
+}
+
+// MAIN
 int main()
 {
     orang joko;
@@ -46,6 +50,7 @@ int main()
 
     siswa joko_siswa;
     joko_siswa.setId(1);
+
     joko_siswa.displayAll(joko);
 
     return 0;
